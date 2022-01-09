@@ -1,32 +1,40 @@
 package com.example.service;
 
 import com.example.entity.Product;
+import com.example.repo.ProductRepo;
+import com.example.utils.RandomNumber;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
 
-    private static List<Product> products = new ArrayList<Product>() {
-        {
-            add(new Product(System.currentTimeMillis(), "001", "Product 001", 1000.0));
-            add(new Product(System.currentTimeMillis(), "002", "Product 002", 2000.0));
-            add(new Product(System.currentTimeMillis(), "003", "Product 003", 3000.0));
-            add(new Product(System.currentTimeMillis(), "004", "Product 004", 4000.0));
-            add(new Product(System.currentTimeMillis(), "005", "Product 005", 5000.0));
-        }
-    };
+    @Autowired
+    private ProductRepo repo;
 
-    public List<Product> findAll(){
-        return products;
+    public Iterable<Product> findAll(){
+        return repo.findAll();
     }
 
     public  void addProduct(Product product){
-        product.setId(System.currentTimeMillis());
-        products.add(product);
+        repo.save(product);
+    }
+
+    public void deleteById(long id){
+        repo.deleteById(id);
+    }
+
+    public Optional<Product> findById(long id){
+        return repo.findById(id);
+    }
+
+    public void updateProduct(Product product){
+        repo.save(product);
     }
 
 
