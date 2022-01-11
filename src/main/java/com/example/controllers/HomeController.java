@@ -11,12 +11,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("")
 public class HomeController {
 
 	@Autowired
 	private ProductService productService;
+
+    @Autowired
+    private HttpSession session;
 
 	@GetMapping
 	public String welcome(Model model) {
@@ -62,6 +67,7 @@ public class HomeController {
         String message = "Welcome to SPRING MVC";
         model.addAttribute("message", message);
         model.addAttribute("searchForm", searchFormData);
+        session.setAttribute("searchKey", searchFormData.getKeyword());
         model.addAttribute("products", productService.findByName(searchFormData.getKeyword()));
         return "index";
     }
