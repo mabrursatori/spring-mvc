@@ -37,5 +37,9 @@ public class ProductService {
         repo.save(product);
     }
 
+    public List<Product> findByName(String keyword){
+        return repo.findByNameContains(keyword);
+    }
+
 
 }

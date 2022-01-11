@@ -1,5 +1,6 @@
 package com.example.controllers;
 
+import com.example.dto.SearchFormData;
 import com.example.entity.Product;
 import com.example.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class HomeController {
 	public String welcome(Model model) {
 		String message = "Welcome to SPRING MVC";
 		model.addAttribute("message", message);
+        model.addAttribute("searchForm", new SearchFormData());
 		model.addAttribute("products", productService.findAll());
 		return "index";
 	}
@@ -53,6 +55,15 @@ public class HomeController {
     public String update(Product product, Model model){
         productService.updateProduct(product);
         return "redirect:/";
+    }
+
+    @PostMapping("/search")
+    public String search(SearchFormData searchFormData, Model model) {
+        String message = "Welcome to SPRING MVC";
+        model.addAttribute("message", message);
+        model.addAttribute("searchForm", searchFormData);
+        model.addAttribute("products", productService.findByName(searchFormData.getKeyword()));
+        return "index";
     }
 
 }
