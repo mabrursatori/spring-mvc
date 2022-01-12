@@ -2,6 +2,7 @@ package com.example.controllers;
 
 import com.example.dto.SearchFormData;
 import com.example.entity.Product;
+import com.example.service.EmailService;
 import com.example.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,8 +24,12 @@ public class HomeController {
     @Autowired
     private HttpSession session;
 
+    @Autowired
+    private EmailService emailService;
+
 	@GetMapping
 	public String welcome(Model model) {
+        emailService.sendEmail("mabrursatori@gmail.com", "New Email", "Hallo Bro!");
         System.out.println("TEST HOME");
 		String message = "Welcome to SPRING MVC";
 		model.addAttribute("message", message);
