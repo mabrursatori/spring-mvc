@@ -25,6 +25,7 @@ public class HomeController {
 
 	@GetMapping
 	public String welcome(Model model) {
+        System.out.println("TEST HOME");
 		String message = "Welcome to SPRING MVC";
 		model.addAttribute("message", message);
         model.addAttribute("searchForm", new SearchFormData());

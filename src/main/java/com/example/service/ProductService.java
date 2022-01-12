@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.dao.impl.ProductDao;
 import com.example.entity.Product;
 import com.example.repo.ProductRepo;
 import com.example.utils.RandomNumber;
@@ -16,6 +17,9 @@ public class ProductService {
 
     @Autowired
     private ProductRepo repo;
+
+    @Autowired
+    private ProductDao productDao;
 
     public Iterable<Product> findAll(){
         return repo.findAll();
@@ -41,5 +45,7 @@ public class ProductService {
         return repo.findByNameContains(keyword);
     }
 
-
+        public List<Product> getAllProductsJdbc(){
+                return productDao.getAllProducts();
+        }
 }
